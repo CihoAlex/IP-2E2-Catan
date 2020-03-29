@@ -34,7 +34,7 @@ public class WelcomeScript : MonoBehaviour
             {
                 GoToMenu();
             }
-            //else { failesLogInPopUp.SetVisible(true); }
+            //else { failedLogInPopUp.SetVisible(true); }
         }
 
         email = emailObj.GetComponent<InputField>().text;
