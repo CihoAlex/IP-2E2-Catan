@@ -1,22 +1,24 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using Logger;
+using System;
+
 public class WelcomeScript : MonoBehaviour
 {
     private string email;
     private string username;
     private string password;
-
     public void QuitGame()
     {
         Application.Quit();
     }
 
-
     public async void GoToMenu()
     {
-        await EmailLogin.Instance.CreateNewAccountAsync("octavian_milea@outlook.com", "tavitavi");
+        //EmailLogin.Instance.subscribeToAccountCreated(handleRegister);
+        //EmailLogin.Instance.CreateNewAccount("octavian_milea@outlook.com", "tavitavi");
         //if (!string.IsNullOrEmpty(user) && !string.IsNullOrEmpty(pass)) //si aici trebuie validate username-ul si parola
+        EmailLogin.Instance.SignInWithEmailAsync("octavian_milea@outlook.com", "tavitavi");
         SceneManager.LoadScene("MainMenu");
     }
 

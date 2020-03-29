@@ -8,26 +8,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Threading;
 namespace Logger
 {
-    public  sealed class EmailLogin
+    public enum AccountLoginStatus { 
+        failed = 0,
+        success = 1
+    }
+
+    public enum AccountRegisterStatus { 
+        accountAlreadyExists = 0,
+        confirmationMailSent = 1,
+        registrationFailed = 2
+    }
+
+    public class EmailLogin
     {
-        static Func<int> afterLogin;
-        static Func<int>  afterCreatingAcc;
-        static Func<int> afterResetingPass;
-        public void subscribeToLoginSucceded(Func<int> action  )
+        private static Action<AccountLoginStatus> afterLogin;
+        private static Action<AccountRegisterStatus> afterCreatingAcc;
+        private static Action<int> afterResetingPass;
+        
+        public void SubscribeToLoginSucceded(Action<AccountLoginStatus> action)
         {
                 afterLogin = action;
         }
         
-        public void subscribeToAccountCreated( Func<int> action)
+        public void subscribeToAccountCreated( Action<AccountRegisterStatus> action)
         {
             afterCreatingAcc = action;
         }
 
-        public void subscribeToPasswordReset(Func<int> action)
+        public void subscribeToPasswordReset(Action<int> action)
         {
-            afterRestingPass = action;
+            afterResetingPass = action;
         }
 
         private EmailLogin() { }
@@ -49,28 +62,24 @@ namespace Logger
                 }
             }
         }
-        public async Task CreateNewAccountAsync(String email, String pass)
+        public void CreateNewAccount(String email, String pass)
         {
-            var authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyBBVQYk-GFc4InkQub-Z-stYing-81UUQc"));
-            await authProvider.CreateUserWithEmailAndPasswordAsync(email, pass,"tavi", true);
-            if (afterCreatingAcc != null)
-                afterCreatingAcc();
+                var authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyBBVQYk-GFc4InkQub-Z-stYing-81UUQc"));
+                var auth =  authProvider.CreateUserWithEmailAndPasswordAsync(email, pass, "tavi", true).Result;
         }
 
         public async Task SignInWithEmailAsync(String email, String pass)
         {
             var authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyBBVQYk-GFc4InkQub-Z-stYing-81UUQc"));
-            await authProvider.SignInWithEmailAndPasswordAsync(email, pass); 
-            if ( afterLogin != null)
-                afterLogin();
+            var auth = authProvider.SignInWithEmailAndPasswordAsync(email, pass);
+            
+
         }
 
         public async Task EmailResetPassAsync(String email)
         {
             var authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyDITPuS64TxugEpwPLKU773Q1n-yy58-6k"));
-            await authProvider.SendPasswordResetEmailAsync(email);
-            if (afterResetingPass!= null)
-                afterResetingPass();
+            var auth = authProvider.SendPasswordResetEmailAsync(email);
         }
     }
 }
