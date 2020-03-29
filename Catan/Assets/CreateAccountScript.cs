@@ -3,50 +3,72 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Logger;
+using System;
+using UnityEngine.UI;
+using System.IO;
 
 public class CreateAccountScript : MonoBehaviour
 {
-    private string username;
-    private string password;
-    private string email;
+    public GameObject usernameObj;
+    public GameObject emailObj;
+    public GameObject passwordObj;
+    public GameObject passwordConfirmationObj;
+	public GameObject successPopUp;
+    private string Name;
+    private string Email;
+    private string Password;
+    private string PasswordConfirmation;
+    //private bool EmailValid = false;
 
-    public void GoToLogin()
+	void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Tab))
+		{
+			if (emailObj.GetComponent<InputField>().isFocused)
+			{
+				usernameObj.GetComponent<InputField>().Select();
+			}
+			if (usernameObj.GetComponent<InputField>().isFocused)
+			{
+				passwordObj.GetComponent<InputField>().Select();
+			}
+			if (passwordObj.GetComponent<InputField>().isFocused)
+			{
+				passwordConfirmationObj.GetComponent<InputField>().Select();
+			}
+		}
+		if (Input.GetKeyDown(KeyCode.Return))
+		{
+			if (PasswordConfirmation != "" && Password != "" && Email != "" && Name != "")
+			{
+				CreateAccount();
+				successPopUp.SetActive(true);
+			}
+		}
+
+		Name = usernameObj.GetComponent<InputField>().text;
+		Email = emailObj.GetComponent<InputField>().text;
+		Password = passwordObj.GetComponent<InputField>().text;
+		PasswordConfirmation = passwordConfirmationObj.GetComponent<InputField>().text;
+	}
+
+	public void PressSubmit()
+    {
+		if (PasswordConfirmation != "" && Password != "" && Email != "" && Name != "")
+		{
+			CreateAccount();
+		}
+	}
+
+	public void GoToLogin()
     {
         SceneManager.LoadScene("LogInScene");
     }
 
-    public bool isValid(string thing)
-    {
-        if (string.IsNullOrEmpty(thing)) //+alte validari
-            return false;
-        else return true;
-    }
-
-    public void SetUsername(string user)
-    {
-        if(isValid(user))
-            this.username = user;
-    }
-
-    public void SetPassword(string pass)
-    {
-        if (isValid(pass))
-            this.password = pass; ;
-    }
-
-    public void SetEmail(string email)
-    {
-        if (isValid(email))
-            this.email = email;
-    }
 
     public async void CreateAccount()
     {
-        EmailLogin.Instance.CreateNewAccount("emailParam", "PassParam");
-    }
-
-    public async void Submit()
-    {
+        EmailLogin.Instance.CreateNewAccount(Email, Password, Name);
     }
 
 }

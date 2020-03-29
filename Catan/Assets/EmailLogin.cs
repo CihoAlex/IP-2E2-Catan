@@ -62,18 +62,16 @@ namespace Logger
                 }
             }
         }
-        public void CreateNewAccount(String email, String pass)
+        public void CreateNewAccount(String email, String pass, String username)
         {
                 var authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyBBVQYk-GFc4InkQub-Z-stYing-81UUQc"));
-                var auth =  authProvider.CreateUserWithEmailAndPasswordAsync(email, pass, "tavi", true).Result;
+                var auth =  authProvider.CreateUserWithEmailAndPasswordAsync(email, pass, username, true).Result;
         }
 
         public async Task SignInWithEmailAsync(String email, String pass)
         {
             var authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyBBVQYk-GFc4InkQub-Z-stYing-81UUQc"));
             var auth = authProvider.SignInWithEmailAndPasswordAsync(email, pass);
-            
-
         }
 
         public async Task EmailResetPassAsync(String email)

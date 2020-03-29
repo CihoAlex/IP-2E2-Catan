@@ -2,20 +2,58 @@
 using UnityEngine.SceneManagement;
 using Logger;
 using System;
+using System.Collections;
+using UnityEngine.UI;
+using System.IO;
 
 public class WelcomeScript : MonoBehaviour
 {
+    public GameObject passwordObj;
+    public GameObject emailObj;
+    public GameObject failedLogInPopUp;
     private string email;
-    private string username;
     private string password;
     public void QuitGame()
     {
         Application.Quit();
     }
 
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (emailObj.GetComponent<InputField>().isFocused)
+            {
+                passwordObj.GetComponent<InputField>().Select();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Return)) //daca apesi enter
+        {
+            if (email != "" && password != "") //validare
+            {
+                GoToMenu();
+            }
+            //else { failesLogInPopUp.SetVisible(true); }
+        }
+
+        email = emailObj.GetComponent<InputField>().text;
+        password = passwordObj.GetComponent<InputField>().text;
+    }
+
+    public void PressEnter()
+    {
+        if (email != "" && password != "")
+        {
+            GoToMenu();
+        }
+    }
+
     public async void GoToMenu()
     {
-        EmailLogin.Instance.SignInWithEmailAsync("octavian_milea@outlook.com", "tavitavi");
+        emailObj.GetComponent<InputField>().text = "";
+        passwordObj.GetComponent<InputField>().text = "";
+        await EmailLogin.Instance.SignInWithEmailAsync(email, password);
         SceneManager.LoadScene("MainMenu");
     }
 
