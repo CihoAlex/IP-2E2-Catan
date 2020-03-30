@@ -27,7 +27,7 @@ namespace Logger
         private static Action<AccountLoginStatus> afterLogin;
         private static Action<AccountRegisterStatus> afterCreatingAcc;
         private static Action<int> afterResetingPass;
-        
+        public bool isAuthOk = false;
         public void SubscribeToLoginSucceded(Action<AccountLoginStatus> action)
         {
                 afterLogin = action;
@@ -65,16 +65,27 @@ namespace Logger
         public void CreateNewAccount(String email, String pass, String username)
         {
                 var authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyBBVQYk-GFc4InkQub-Z-stYing-81UUQc"));
-                var auth =  authProvider.CreateUserWithEmailAndPasswordAsync(email, pass, username, true).Result;
+                authProvider.CreateUserWithEmailAndPasswordAsync(email, pass, username, true);
         }
 
-        public async Task SignInWithEmailAsync(String email, String pass)
+        public  void  SignInWithEmailAsync(String email, String pass)
         {
             var authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyBBVQYk-GFc4InkQub-Z-stYing-81UUQc"));
-            var auth = authProvider.SignInWithEmailAndPasswordAsync(email, pass);
+            try
+            {
+                var auth = authProvider.SignInWithEmailAndPasswordAsync(email, pass).Result;
+                if (auth != null)
+                {
+                    Debug.Log("isOK");
+                    isAuthOk = true;
+                }
+            } catch
+            {
+                isAuthOk = false;
+            }
         }
 
-        public async Task EmailResetPassAsync(String email)
+        public void EmailResetPass(String email)
         {
             var authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyDITPuS64TxugEpwPLKU773Q1n-yy58-6k"));
             var auth = authProvider.SendPasswordResetEmailAsync(email);

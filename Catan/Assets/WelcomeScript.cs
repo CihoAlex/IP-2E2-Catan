@@ -53,8 +53,15 @@ public class WelcomeScript : MonoBehaviour
     {
         emailObj.GetComponent<InputField>().text = "";
         passwordObj.GetComponent<InputField>().text = "";
-        await EmailLogin.Instance.SignInWithEmailAsync(email, password);
-        SceneManager.LoadScene("MainMenu");
+         
+      EmailLogin.Instance.SignInWithEmailAsync(email, password);
+        Debug.Log("going to present");
+        if (EmailLogin.Instance.isAuthOk){
+            SceneManager.LoadScene("MainMenu");
+            EmailLogin.Instance.isAuthOk = false;
+        } else {
+            failedLogInPopUp.SetActive(true);
+        }
     }
 
     public void SignUp()
