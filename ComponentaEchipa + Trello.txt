@@ -8,6 +8,4 @@ Cihodaru Alexandru
 Craciun Ionut
 Aparaschivei Sebastian
 
-
-Trello invite : https://trello.com/invite/b/IuS7eqgv/ae4479fc7c754879f05d630a04eabcf7/ip-backend
 Permanent link : https://trello.com/b/IuS7eqgv/ip-backend
