@@ -1932,8 +1932,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'These things happen!
 
-    Write down you''re e-mail and you''ll receive a message with your current password
-    asap:'
+    Write down your e-mail and you''ll receive a message to reset your password.'
 --- !u!222 &866561023
 CanvasRenderer:
   m_ObjectHideFlags: 0
