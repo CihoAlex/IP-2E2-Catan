@@ -1,0 +1,144 @@
+Fisa cerintelor
+
+Proiectul consta intr-o implementare online a jocului Catan....
+
+
+Actori & obiecte:
+
+Utilizatorul: sa poata juca jocul
+
+Clientul: faciliteaza interactiunea dintre utilizator si server, comunica datele
+
+Serverul: transmite informatiile necesare clientului si utilizatorului
+
+Administratorul de server: asigura buna functionare
+
+------------------------------------------------------------------------------------
+
+
+SCENARII UTILIZARE:
+
+
+CONECTARE / TUTORIAL
+---------------------------------------------------------------------------------
+I. Utilizatorul deschide aplicatia si se conecteaza:
+	I.1 Obiectiv:
+		Clientul deschide aplicatia, se logheaza / isi creeaza cont si ajunge in main menu daca conexiunea a functionat
+	I.2 Pasi:
+		1. Utilizatorul isi introduce datele de logare sau alege un cont extern (Facebook / Gmail etc.) cu care sa se conecteze
+		2. Clientul ii ofera feedback ca a reusit conectarea si utilizatorul ajunge in main menu
+	I.3 Extensii:
+		1. Date de logare gresite
+		2. Utilizatorul apasa pe recuperare parola si va fi indrumat de aplicatie sa execute pasii necesari
+
+
+
+II. Utilizatorul doreste sa se conecteze la un lobby deschis
+	II.1 Obiectiv:
+		Utilizatorul este conectat si doreste sa intre intr-un lobby
+	II.2 Pasi:
+		1. Utilizatorul apasa butonul de join lobby si ii este afisata lista camerelor deschise in care poate intra
+		2. Utilizatorul da click pe camera in care vrea sa intre si apasa join
+		3. Utilizatorul se conecteaza la camera, asteapta deciziile host-ului si poate comunica in chat cu ceilalti utilizatori conectati la lobby
+	II.3 Extensii:
+		1. Conexiunea utilizatorului este instabila
+		2. Serverul nu raspunde la timp si utilizatorul primeste feedback
+		3. Camera nu mai este disponibila
+
+
+
+III. Utilizatorul doreste sa isi creeze propriul lobby
+	III.1 Obiectiv:
+		Utilizatorul este conectat si doreste sa isi creeze propriul lobby
+	III.2 Pasi:
+		1. Utilizatorul selecteaza optiunea de creare lobby
+		2. Clientul cere utilizatorului sa introduca diferite optiuni administrative (privacy, parola daca este necesara, ce expansiuni doreste sa foloseasca)
+		3. Utilizatorul asteapta sa intre alte persoane in lobby, in timp ce poate gestiona personal jucatorii (invite alti jucatori, sa dea kick altor jucatori, sa accepte cererea de join a altor utilizatori daca lobby-ul este privat  etc.) si poate comunica in chat cu ceilalti utilizatori conectati la lobby
+		4. Utilizatorul poate schimba anumite reguli in timp ce lobby-ul este deschis (nr. de puncte pentru victorie, sa seteze o limita de timp)
+	III.3 Extensii:
+		1. Conexiunea utilizatorului este instabila
+		2. Serverul nu raspunde la timp si utilizatorul primeste feedback
+
+IV. Utilizatorul doreste sa joace un tutorial
+	IV.1 Obiectiv:
+		Utilizatorul nu stie sa joace Catan si doreste sa acceseze un tutorial
+	IV.2 Pasi:
+		1. Utilizatorul selecteaza optiunea de tutorial
+		2. Se deschide o fereastra de joc unde utilizatorul este ghidat prin text pop ups prin regulile jocului si diferitele actiuni pe care le poate face
+-------------------------------------------------------------------------------------------------------------
+
+
+
+GAMEPLAY:
+---------------------------------------------------------------------------------------------------------
+
+I. Utilizatorul s-a conectat cu succes la un lobby si incepe jocul
+	I.1 Obiectiv
+		Utilizatorii conectati vor juca un joc de Catan
+	I.2 Pasi
+		1. Tabla de joc se initializeaza (se asgineaza resursele la fiecare hexagon conform regulilor si se asigneaza fiecarui hexagon numarul corespunzator, se plaseaza pionul de hot pe unul dintre hexagoanele desert)
+		2. Jocul se initializeaza (fiecare utilizator are acces la un card unde poate verifica costul lucrurilor pe care le poate cumpara, primeste un numar de tura, primeste 5 settlements, 4 cities, 15 roads pe care le poate folosi indealungul jocului, primeste 2 settlements si 2 roads initiale pe care fiecare utilizator le poate pozitiona in ordinea turelor, cate o asezare si un drum odata)
+		3. Utilizatorii primesc resurse si puncte corespunzatoare asezarii celui de-al doilea settlement, un RS pt fiecare hexagon adiacent si jocul poate incepe
+		4. Fiecare jucator isi desfasoara tura in ordinea stabilita:
+			4.1 Poate folosi carti de dezvoltare oricand primeste tura daca nu le-a cumparat in tura respectiva (scenariul II)
+			4.2 Se da cu zarul (2d6) dupa ce jucatorul nu mai are actiuni de facut cu cartile de dezvoltare (utilizatorul confirma ca se poate da cu zarul apasand "Roll" sau nu mai are dezvoltari disponibile)
+			4.3 Daca nu s-a dat total 7, fiecare jucator primeste resursele corespunzatoare hexagoanelor vecine asezarilor lui cu numarul de pe zaruri.
+			4.4 Daca s-a dat 7:
+				- fiecare jucator cu mai mult de 7 carti de resurse decarteaza nr de carti DIV 2 dintre ele
+				- jucatorul curent muta pionul de hot pe un hexagon la alegere (hotul blocheaza hexagonul de la a mai oferi resurse cand se da cu zarul), apoi fura o carte de resursa la intamplare din mana unuia dintre jucatorii care au asezari adiacente la acel hexagon
+			4.5 Jucatorul curent poate oferi trade-uri daca are cel putin o resursa (scenariul III)
+			4.6 Jucatorul curent poate construi drumuri, asezari, sau poate transforma o asezare intr-un oras daca are resursele necesare (scenariul IV)
+			4.7 Jucatorul curent poate cumpara carti de dezvoltare de la banca daca are resursele necesare
+			4.8 Se verifica conditiile de la cartile de cel mai lung drum si cea mai mare armata si se acorda jucatorului curent daca este cazul
+			4.9 Se verifica punctele de victorie ale fiecarui jucator si timer-ul. Jocul se termina daca unul dintre jucatori a ajuns la numarul de puncte necesar pentru victorie. Tura se termina daca timer-ul jucatorului a ajuns la 0.
+			4.10 Se verifica daca vreunul dintre jucatori si-a schimbat preferintele de trade	
+
+		5. Utilizatorii pot face zoom in / zoom out la masa
+		6. Utilizatorii pot apasa pe Settings pentru a intra in setari si modifica diferite optiuni
+		7. Utilizatorul poate iesi din joc, primind un warning daca doreste sa iasa in timpul jocului ca jocul nu e gata inca.
+		8. Utilizatorii pot comunica intre ei prin intermediul chat-ului
+
+
+II. Utilizatorul de pe tura curenta vrea sa foloseasca o carte de dezvoltare
+	II.1 Obiectiv:
+		Jucatorul curent detine una sau mai multe carti de dezvoltare si vrea sa foloseasca cel putin una dintre ele
+	II.2 Pasi:
+		1. Jucatorul da click pe una dintre cartile sale de dezvoltare si da click pe optiunea de Use, care este disponibila doar daca jucatorul nu a cumparat acea carte in tura curenta
+		2. Cartea de dezvoltare selectata este soldat:
+			- jucatorul curent muta pionul de hot pe un hexagon la alegere (hotul blocheaza hexagonul de la a mai oferi resurse cand se da cu zarul), apoi fura o carte de resursa la intamplare din mana unuia dintre jucatorii care au asezari adiacente la acel hexagon
+			- daca jucatorul curent a folosit cele mai multe carti soldat (minim 3) din joc, primeste cartea de Cea mai mare armata, si i se adauga 2 puncte la scor. Cele 2 puncte vor disparea daca jucatorul pierde cartea
+		3. Cartea de dezvoltare selectata este progress: jocul face actiunile scrise pe carte
+		4. Cartea de dezvoltare selectata este punct: jucatorul o poate privi; pentru fiecare carte, scorul jucatorului are +1VP; jucatorul curent vede scorul intreb, pentru ceilalti punctele date de cartile de punct nu sunt vizibile la scor			
+
+
+III. Jucatorul curent ofera un trade
+	III.1 Obiectiv:
+		Jucatorul curent doreste sa ofere un trade bancii, sau jucatorilor
+	III.2 Pasi:
+		- jucatorul ofera un trade bancii apasand butonul de trade si selectand banca din lista de trade targets:
+			- daca jucatorul nu are un port, trebuie sa ofere 4 resurse de acelasi tip pentru o carte de resursa la alegere, trade-ul fiind acceptat automat
+			- daca jucatorul are un port simplu, trebuie sa ofere 3 resurse de acelasi tip pentru o carte de resursa la alegere, trade-ul fiind acceptat automat
+			- daca jucatorul are un port complex, poate oferi 2 resurse corespunzatoare portului pentru o carte de resursa la alegere, trade-ul fiind acceptat automat
+
+		- jucatorul poate anunta o oferta de trade tuturor jucatorilor apasand butonul de trade si selectand "players"
+			- jucatorul curent selecteaza ce resurse vrea sa ofere si ce resurse doreste sa primeasca
+			- daca macar un jucator e de acord, playerul alege daca vrea sa faca trade-ul si cu cine(daca e cazul)
+			- daca jucatorii nu doresc sau nu au destule resurse, dau dismiss la pop up
+
+IV. Construire asezare, oras sau drum
+	IV.1 Obiectiv:
+		Jucatorul curent doreste sa construiasca o asezare, un drum sau sa transforme o asezare intr-un oras
+	IV.2 Pasi:
+		1. Jucatorul da click pe un hexagon/intersectie de hexagoane si selecteaza ce vrea sa construiasca, optiunea va fi disponibila doar daca are resursele necesare
+		- Jucatorul a selectat ca vrea sa construiasca o asezare:
+			- Se verifica daca nu exista alte asezari/orase pe intersectiile adiacente, jucatorul are un drum catre acea intersectie, jucatorul nu si-a atins limita de asezari pe care le poate construi.
+			- Daca conditiile se respecta, utilizatorul este intrebat daca este sigur ca doreste sa construiasca asezarea. Daca apasa da, asezarea este construita si jucatorului i se scad resursele necesare construirii
+			- Daca conditiile nu se respecta, utilizatorul este avertizat in legatura cu ce conditii nu a respectat optiunea sa de asezare
+		
+		- Jucatorul a selectat ca vrea sa construiasca un drum:
+			- Se verifica daca are un drum adiacent propriu si daca nu si-a atins limita de drumuri
+			- Daca conditiile se respecta, utilizatorul este intrebat daca este sigur ca doreste sa construiasca drumul. Daca apasa da, drumul este construit si jucatorului i se scad resursele necesare construirii. Daca jucatorul a construit cea mai lunga secventa continua de drumuri(minim 5) si nu are cartea Cel mai lung drum, primeste cartea Cel mai lung drum
+
+		- Jucatorul a selectat ca vrea sa transforme o asezare intr-un oras
+			- Se verifica daca nu si-a atins limita de orase pe care le poate construi
+			- Daca conditiile se respecta, utilizatorul este intrebat daca este sigur ca doreste sa transforme asezarea in drum. Daca apasa da, orasul este construit si jucatorului i se scad resursele necesare construirii. Limita de asezari pe care jucatorul le poate construi creste cu 1.

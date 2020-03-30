@@ -1,0 +1,12 @@
+OLD
+    UTILIZATORUL SA POATE AJUNGE LA O CAMERA DE JOC
+	
+	- Login / register functional
+	- Main menu cvasi-functional (macar cat ca utilizatorul sa poate ajunge intr-un joc, fie prin:)
+		-lobby (optimist)
+		- matching direct (play -> ajunge in camera)
+
+---------------------------------------------------------------
+WHAT WE DID
+
+	- Research 

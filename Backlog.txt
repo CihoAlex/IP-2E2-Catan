@@ -1,0 +1,80 @@
+Fisa cerintelor
+PRODUCT BACKLOG
+
+PROJECT VITALS:
+	- Functionalitate de logare prin email/parola + conturi externe (facebook, gmail, etc.)
+	- Client care proceseaza informatii si ajuta utilizatorul sa se conecteze la joc
+	- Comunicare eficienta cu serverul in transmiterea informatiilor
+	- Posibilitate de joc online pentru 4 utilizatori
+	- Rules engine functional, cuprinzand:
+		- 1) PLAYER
+    			1.1) COLOR/PICTURE
+    			1.2) ORDER
+			1.4) VICTORY POINTS
+			1.5) DISABLE TRADE MENU
+			1.6) DEVELOPING CARDS IN HAND
+			1.7) NUMBER OF DEVELOPING CARDS
+                        1.8) BUY DEVELOPING CARDS
+			1.9) NUMBER OF RESOURCE CARDS
+			1.10) RESOURCE CARDS IN HAND
+       			1.11) SOLDIER CARDS PLAYED
+			1.12) LONGEST PATH
+        		1.13) REMAINING SETTLEMENTS
+			1.14) REMAINING ROADS
+			1.15) REMAINING CITIES
+			1.16) REAL/COMPUTER
+	
+		*1) CONSTANT CHECKS
+			1. Is player winning?
+			2. Has BESTARMY Card?
+			3. Has LONGESTPATH Card?
+			4. Timer
+			5. Trading CONDITIONS
+		
+		2) MAP
+			2.1) HEXAGONS
+				2.1.1) NUMBER
+				2.1.2) RESOURCE
+			2.2) HARBORS
+			2.3) ROBBER
+			2.4) BUILDINGS
+				2.4.1) CITIES
+				2.4.2) SETTLEMENTS
+				2.4.3) ROADS
+	
+		3) CARDS
+			3.1) RESOURCE CARDS STACK
+			3.2) DEVELOPING CARDS STACK
+
+		4) TRADING MENU
+			4.1) MENU TO SELECT WHO TO OFFER (BANK, ALL PLAYERS, ONE PLAYER)
+			4.2) CARDS TO RECEIVE
+			4.3) CARDS TO OFFER 
+			4.4) BUTTONS
+				4.3.1) ACCEPT TRADE
+				4.3.2) DECLINE
+				4.3.3) EXIT
+				4.4.4) CONFIRM OFFER
+			4.5) TIMER
+
+		5) OTHER
+ 			5.1) DICE
+			5.2) TURN TIMER
+			5.3) BUILD COST CARD
+			5.4) EXIT BUTTON
+
+IMPORTANT COMPONENTS:
+	- Functionalitate de lobby-uri la care utilizatorul se poate conecta sau le poate crea
+	- Un AI care sa inlocuiasca un jucator care iese
+ 	- Setari
+
+WOULD BE NICE:
+	- Tutorial care ghideaza jucatorul prin reguli
+	- Chat in timpul jocului
+	- Schimbare reguli in lobby + adaugare extensii
+	- Sistem de ranking al jucatorilor, perks pentru victorii si timp jucat, leaderboards
+	- Sistem de profil al jucatorilor, unde isi pot arata achievements, perks, etc.
+	- Share pe social media la rezultatele jocului
+	- Gasire prieteni prin social media
+
+
