@@ -2,10 +2,8 @@ Fisa cerintelor
 PRODUCT BACKLOG
 
 PROJECT VITALS:
-	- Functionalitate de logare prin email/parola + conturi externe (facebook, gmail, etc.)
-	- Client care proceseaza informatii si ajuta utilizatorul sa se conecteze la joc
-	- Comunicare eficienta cu serverul in transmiterea informatiilor
 	- Posibilitate de joc online pentru 4 utilizatori
+	- Schimbare reguli in lobby + adaugare extensii
 	- Rules engine functional, cuprinzand:
 		- 1) PLAYER
     			1.1) COLOR/PICTURE
@@ -64,17 +62,9 @@ PROJECT VITALS:
 			5.4) EXIT BUTTON
 
 IMPORTANT COMPONENTS:
-	- Functionalitate de lobby-uri la care utilizatorul se poate conecta sau le poate crea
 	- Un AI care sa inlocuiasca un jucator care iese
  	- Setari
 
 WOULD BE NICE:
 	- Tutorial care ghideaza jucatorul prin reguli
-	- Chat in timpul jocului
-	- Schimbare reguli in lobby + adaugare extensii
-	- Sistem de ranking al jucatorilor, perks pentru victorii si timp jucat, leaderboards
-	- Sistem de profil al jucatorilor, unde isi pot arata achievements, perks, etc.
-	- Share pe social media la rezultatele jocului
-	- Gasire prieteni prin social media
-
-
+	- Sistem de perks pentru victorii, raportat la profilul jucatorului
